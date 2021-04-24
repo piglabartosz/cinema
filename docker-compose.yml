@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  cinema-api-service:
+    image: cinema-api
+    build:
+      context: .
+      args:
+        - JAR_FILE=build/libs/cinema-1.0.jar
+    ports:
+      - 8080:8080
+    depends_on:
+      - cinema-db-service
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://cinema-db-service:5432/cinema-db-user
+      - SPRING_DATASOURCE_USERNAME=cinema-db-user
+      - SPRING_DATASOURCE_PASSWORD=cinema-db-password
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+  cinema-db-service:
+    image: postgres:13.2-alpine
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=cinema-db-user
+      - POSTGRES_PASSWORD=cinema-db-password
+    volumes:
+      - database:/var/lib/postgresql/data
+volumes:
+  database:
