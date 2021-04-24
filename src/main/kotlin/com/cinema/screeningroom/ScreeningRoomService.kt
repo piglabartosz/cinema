@@ -8,6 +8,5 @@ class ScreeningRoomService(
     private val showTimeRepository: ShowTimeRepository
 ) {
     fun updateShowTime() {
-        throw NotImplementedError()
     }
 }
