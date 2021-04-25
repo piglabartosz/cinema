@@ -15,7 +15,7 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://cinema-db-service:5432/cinema-db-user
       - SPRING_DATASOURCE_USERNAME=cinema-db-user
       - SPRING_DATASOURCE_PASSWORD=cinema-db-password
-      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - OMDB_KEY=${OMDB_KEY}
   cinema-db-service:
     image: postgres:13.2-alpine
     ports:

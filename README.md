@@ -1,4 +1,5 @@
 # INSTALLATION GUIDE
+Create environment variable with key: OMDB_KEY and your API key as value. Docker Compose needs it to pass API key as environment variable to cinema-api container. 
 ```
 ./gradlew build -x test
 docker-compose build

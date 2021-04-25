@@ -17,7 +17,7 @@ import java.math.BigDecimal
 import java.time.Instant
 import java.util.*
 
-class UpdateShowTimeIntegrationTest : AbstractIntegrationTest() {
+class ShowTimeUpdateIntegrationTest : AbstractIntegrationTest() {
 
     @Autowired
     private lateinit var screeningRoomRepository: ScreeningRoomRepository
