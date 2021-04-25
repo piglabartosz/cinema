@@ -11,3 +11,6 @@ If you want to use debugger in IntelliJ IDEA and Docker Compose, you can use thi
 # INTEGRATION TESTS
 If you want to use singleton containers for better performance, add `testcontainers.reuse.enable=true` property to `.testcontainers.properties` file in your home directory.
 Details here: https://www.testcontainers.org/test_framework_integration/manual_lifecycle_control/#singleton-containers
+
+# API DOCUMENTATION
+Swagger 2.0 documentation: http://localhost:8080/swagger-ui/
