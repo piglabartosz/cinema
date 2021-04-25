@@ -2,6 +2,7 @@ package com.cinema.screeningroom
 
 import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Repository
+import java.util.*
 
 @Repository
-interface ScreeningRoomRepository : CrudRepository<ScreeningRoom, String>
+interface ScreeningRoomRepository : CrudRepository<ScreeningRoom, UUID>
