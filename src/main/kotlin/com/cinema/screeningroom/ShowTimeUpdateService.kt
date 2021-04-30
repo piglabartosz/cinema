@@ -41,11 +41,3 @@ class ShowTimeUpdateService(
         return ShowTimeDto.createFromDomainObject(updatedShowTime)
     }
 }
-
-data class ShowTimeUpdateDto(
-    val screeningRoomId: UUID,
-    val startTime: Instant,
-    val endTime: Instant,
-    val price: BigDecimal,
-    val movieId: UUID
-)

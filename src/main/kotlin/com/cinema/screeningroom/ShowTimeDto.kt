@@ -4,7 +4,7 @@ import java.math.BigDecimal
 import java.time.Instant
 import java.util.*
 
-class ShowTimeDto(
+data class ShowTimeDto(
     val id: UUID,
     val screeningRoomId: UUID,
     val startTime: Instant,
