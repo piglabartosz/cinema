@@ -13,7 +13,7 @@ data class ShowTimeDto(
     val movieId: UUID
 ) {
     companion object {
-        fun createFromDomainObject(showTime: ShowTime) =
+        fun create(showTime: ShowTime) =
             ShowTimeDto(
                 id = showTime.id,
                 screeningRoomId = showTime.screeningRoom.id,

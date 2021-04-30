@@ -5,8 +5,6 @@ import com.cinema.exception.DomainObjectNotFoundException
 import com.cinema.utils.Money
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import java.math.BigDecimal
-import java.time.Instant
 import java.util.*
 
 @Service
@@ -38,6 +36,6 @@ class ShowTimeUpdateService(
 
         showTimeRepository.save(updatedShowTime)
 
-        return ShowTimeDto.createFromDomainObject(updatedShowTime)
+        return ShowTimeDto.create(updatedShowTime)
     }
 }
