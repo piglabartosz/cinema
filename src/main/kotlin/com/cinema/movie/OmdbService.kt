@@ -10,19 +10,11 @@ import org.springframework.web.util.UriComponentsBuilder
 
 @Service
 class OmdbService(
-    val restTemplate: RestTemplate,
-    @Value("\${omdb.url}") private val url: String,
+    val omdbClient: OmdbClient,
     @Value("\${omdb.key}") private val apiKey: String
 ) {
     fun getMovieDetails(imdbId: String): ResponseEntity<JsonNode> {
-        val omdbApiResponse: ResponseEntity<JsonNode> = restTemplate.getForEntity(
-            UriComponentsBuilder.fromHttpUrl(url)
-                .queryParam("apikey", apiKey)
-                .queryParam("i", imdbId)
-                .toUriString(),
-            JsonNode::class.java
-        )
-
+        val omdbApiResponse: ResponseEntity<JsonNode> = omdbClient.getMovieDetails(apiKey, imdbId)
         return if (omdbApiResponse.statusCode == HttpStatus.OK && responseContainsMovieDetails(omdbApiResponse))
             ResponseEntity.ok(omdbApiResponse.body)
         else

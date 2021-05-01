@@ -3,23 +3,20 @@ package com.cinema.movie
 import com.cinema.AbstractIntegrationTest
 import com.cinema.movie.Movies.movie
 import com.cinema.utils.JsonNodeConverter.toJsonNode
-import com.fasterxml.jackson.databind.JsonNode
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.nullValue
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestInstance.Lifecycle.PER_CLASS
-import org.mockito.ArgumentMatchers.eq
 import org.mockito.Mockito.`when`
+import org.mockito.Mockito.anyString
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
-import org.springframework.web.client.RestTemplate
 import java.util.*
 
 @TestInstance(PER_CLASS)
@@ -29,13 +26,7 @@ class MovieDetailsIntegrationTest : AbstractIntegrationTest() {
     private lateinit var movieRepository: MovieRepository
 
     @MockBean
-    private lateinit var restTemplate: RestTemplate
-
-    @Value("\${omdb.url}")
-    private lateinit var omdbApiUrl: String
-
-    @Value("\${omdb.key}")
-    private lateinit var omdbKey: String
+    private lateinit var omdbClient: OmdbClient
 
     @Test
     fun `returns 200 with movie details from IMDb if OMDb API works`() {
@@ -47,12 +38,7 @@ class MovieDetailsIntegrationTest : AbstractIntegrationTest() {
                 avgCustomerRating = 3f
             )
         )
-        `when`(
-            restTemplate.getForEntity(
-                eq("$omdbApiUrl?apikey=$omdbKey&i=${movie.imdbId}"),
-                eq(JsonNode::class.java)
-            )
-        ).thenReturn(
+        `when`(omdbClient.getMovieDetails(anyString(), anyString())).thenReturn(
             ResponseEntity(toJsonNode("""{"Response":"True","Awards":"11 wins"}"""), HttpStatus.OK)
         )
 
@@ -76,12 +62,7 @@ class MovieDetailsIntegrationTest : AbstractIntegrationTest() {
                 avgCustomerRating = 3f
             )
         )
-        `when`(
-            restTemplate.getForEntity(
-                eq("$omdbApiUrl?apikey=$omdbKey&i=${movie.imdbId}"),
-                eq(JsonNode::class.java)
-            )
-        ).thenReturn(ResponseEntity.notFound().build())
+        `when`(omdbClient.getMovieDetails(anyString(), anyString())).thenReturn(ResponseEntity.notFound().build())
 
         mockMvc.perform(getMovieDetailsRequest(movie.id))
             .andExpect(status().isOk)

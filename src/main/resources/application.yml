@@ -1,0 +1,6 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop # update database schema for development purposes only
+omdb:
+  key: DEFAULT_API_KEY
