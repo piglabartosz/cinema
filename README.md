@@ -4,9 +4,7 @@ Create environment variable with key: OMDB_KEY and your API key as value. Docker
 environment variable to cinema-api container.
 
 ```
-./gradlew build -x test
-docker-compose build
-docker-compose up
+./gradlew && docker-compose build && docker-compose up
 ```
 
 PostgreSQL container uses default port so make sure that it is not already in use.
